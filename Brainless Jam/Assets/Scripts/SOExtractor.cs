@@ -1,11 +1,13 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SOExtractor : MonoBehaviour
 {
     public BlockScriptableObjects blockSO;
     SpriteRenderer sr;
+    Image image;
 
-    bool wasExtracted;
+    public bool wasExtracted;
 
     void Start()
     {
@@ -18,8 +20,16 @@ public class SOExtractor : MonoBehaviour
         if (blockSO != null && !wasExtracted)
         {
             sr = GetComponent<SpriteRenderer>();
-            sr.sprite = blockSO.sprite;
+            if (sr != null)
+                sr.sprite = blockSO.sprite;
+            else
+            {
+                image = GetComponent<Image>();
+                image.sprite = blockSO.sprite;
+            }
+
             name = blockSO.nameObject;
+            wasExtracted = true;
         }
     }
 }
