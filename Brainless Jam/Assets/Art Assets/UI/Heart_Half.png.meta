@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: a005f11ea07ee3840b75f02d774062a9
+guid: 7c57df6eb87cc67409493b8ffaa1fb54
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7657282893301270824
-    second: Lil%27%20Shooto_0
+      213: 4182410544016666133
+    second: Heart_Half_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -96,40 +96,27 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Lil%27%20Shooto_0
+      name: Heart_Half_0
       rect:
         serializedVersion: 2
-        x: 41
-        y: 42
-        width: 1476
-        height: 998
-      alignment: 9
-      pivot: {x: 0.339, y: 0.5}
+        x: 32
+        y: 1
+        width: 673
+        height: 1042
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8d63a1057cddbb590800000000000000
-      internalID: -7657282893301270824
+      spriteID: 51e26fcfa38ea0a30800000000000000
+      internalID: 4182410544016666133
       vertices: []
       indices: 
       edges: []
@@ -138,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: d95c65bb5eb1bf84eb93216560d5b129
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Lil%27%20Shooto_0: -7657282893301270824
+      Heart_Half_0: 4182410544016666133
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
