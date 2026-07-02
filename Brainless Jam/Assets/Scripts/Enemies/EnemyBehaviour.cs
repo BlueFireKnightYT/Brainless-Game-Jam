@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
@@ -8,12 +9,13 @@ public class EnemyBehaviour : MonoBehaviour
     Collider2D coll;
     public string towerTag;
     public string playerTag;
-
+    bool canDamage;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<Collider2D>();
         isMoving = true;
+        canDamage = true;
     }
     void Update()
     {
@@ -37,8 +39,10 @@ public class EnemyBehaviour : MonoBehaviour
             isMoving = false;
             rb.linearVelocityX = 0;
         }
-        if (collision.gameObject.CompareTag(playerTag))
+        if (collision.gameObject.CompareTag(playerTag) && canDamage)
         {
+            canDamage = false;
+            coll.enabled = false;
             isMoving = false;
             rb.linearVelocityX = 0;
             collision.GetComponent<HealthHandler>().TakeDamage(1);
