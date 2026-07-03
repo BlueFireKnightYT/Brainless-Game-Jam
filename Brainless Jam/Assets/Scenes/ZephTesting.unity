@@ -1856,6 +1856,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   health: 6
   halfHeartSprite: {fileID: 21300000, guid: 7c57df6eb87cc67409493b8ffaa1fb54, type: 3}
+  fullHeartSprite: {fileID: 21300000, guid: 32200bed025bec74ea8624927ab05711, type: 3}
   hearts:
   - {fileID: 634710434}
   - {fileID: 133296722}

@@ -6,22 +6,37 @@ public class HealthHandler : MonoBehaviour
 {
     public int health;
     public Sprite halfHeartSprite;
+    public Sprite fullHeartSprite;
     public Image[] hearts;
 
-    public void TakeDamage(int damage)
+    public void ChangeHealth(int change)
     {
-        health -= damage;
-        if(health == 1 || health == 3 || health == 5)
-        {
-            hearts[Mathf.RoundToInt(health/2)].sprite = halfHeartSprite;
-        }
-        else
-        {
-            Image heart = hearts[(health + 1) / 2];
+        health -= change;
+        UpdateUIHearts();
+    }
 
-            Color c = heart.color;
-            c.a = 0f;
-            heart.color = c;
+    void UpdateUIHearts()
+    {
+        for(int i = 0; i < hearts.Length; i++)
+        {
+            int value = health - (i * 2);
+
+            if (value >= 2)
+            {
+                hearts[i].sprite = fullHeartSprite;
+            }
+            else if(value == 1)
+            {
+                hearts[i].sprite = halfHeartSprite;
+            }
+            else
+            {
+                Image heart = hearts[i];
+
+                Color c = heart.color;
+                c.a = 0f;
+                heart.color = c;
+            }
         }
     }
 }

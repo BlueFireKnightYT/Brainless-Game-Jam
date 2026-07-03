@@ -6,7 +6,7 @@ public class SOChooser : MonoBehaviour
     public BlockScriptableObjects so;
     public BuilderUI builderUI;
     public int amount;
-    public TextMeshProUGUI text;
+    TextMeshProUGUI text;
 
     private void Start()
     {

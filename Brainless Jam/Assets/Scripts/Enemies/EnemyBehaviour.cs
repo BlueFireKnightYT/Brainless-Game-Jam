@@ -45,7 +45,7 @@ public class EnemyBehaviour : MonoBehaviour
             coll.enabled = false;
             isMoving = false;
             rb.linearVelocityX = 0;
-            collision.GetComponent<HealthHandler>().TakeDamage(1);
+            collision.GetComponent<HealthHandler>().ChangeHealth(1);
             Destroy(this.gameObject);
         }
     }
