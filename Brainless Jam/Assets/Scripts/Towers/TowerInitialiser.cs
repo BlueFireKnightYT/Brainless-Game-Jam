@@ -153,7 +153,6 @@ public class TowerInitialiser : MonoBehaviour
             }
 
             Vector2Int pos = basePos + new Vector2Int(x, y);
-            //print(pos);
 
             if (GridManager.Instance.IsOccupied(pos))
                 return false;
