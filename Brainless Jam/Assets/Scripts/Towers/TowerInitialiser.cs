@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.U2D;
 
 
 public class TowerInitialiser : MonoBehaviour
@@ -15,7 +17,6 @@ public class TowerInitialiser : MonoBehaviour
     public LayerMask groundLayer;
     public LayerMask towerLayer;
     List<GameObject> children = new List<GameObject>();
-    List<SpriteRenderer> childrenSr = new List<SpriteRenderer>();
     public bool isOverlapping;
 
 
@@ -52,20 +53,27 @@ public class TowerInitialiser : MonoBehaviour
                 GameObject currentPart = Instantiate(partTemplate, relativePos, Quaternion.identity, transform);
                 currentPart.GetComponent<PartSOUser>().partSO = towerParts[i];
                 children.Add(currentPart);
-                childrenSr.Add(currentPart.GetComponent<SpriteRenderer>());
-                if (lowestPart.Count == 0 || currentPart.transform.position.y == lowestPart[0].transform.position.y)
-                {
-                    lowestPart.Add(currentPart);
-                }
-                if(currentPart.transform.position.y < lowestPart[0].transform.position.y)
-                {
-                    lowestPart.Clear();
-                    lowestPart.Add(currentPart);
-                }
+            }
+            if (towerParts[i] == null)
+            {
+                children.Add(null);
             }
         }
 
-        
+        foreach(GameObject currentPart in children)
+        {
+            if (currentPart == null) continue;
+
+            Vector2Int pos = GetGridPos(currentPart);
+            Vector2Int belowPos = pos + Vector2Int.down;
+
+            bool hasBlockBelow = children.Any(c => c != null && GetGridPos(c) == belowPos);
+
+            if (!hasBlockBelow)
+            {
+                lowestPart.Add(currentPart);
+            }
+        }
     }
 
     private void Update()
@@ -93,9 +101,20 @@ public class TowerInitialiser : MonoBehaviour
 
             if (canPlace)
             {
-                for (int i = 0; i < children.Count; i++) { childrenSr[i].color = Color.white; }
+                for (int i = 0; i < children.Count; i++)
+                { 
+                    if(children[i] == null) continue;
+                    children[i].GetComponent<SpriteRenderer>().color = Color.white;
+                }
             }
-            else { for (int i = 0; i < children.Count; i++) { childrenSr[i].color = Color.red; } }
+            else 
+            { 
+                for (int i = 0; i < children.Count; i++) 
+                {
+                    if (children[i] == null) continue;
+                    children[i].GetComponent<SpriteRenderer>().color = Color.red; 
+                } 
+            }
         }
         if (Mouse.current.leftButton.wasPressedThisFrame && canPlace)
         {
@@ -103,12 +122,14 @@ public class TowerInitialiser : MonoBehaviour
             //Occupies the slots of all parts
             for (int i = 0;i < children.Count; i++)
             {
+                if (children[i] == null) continue;
                 GridManager.Instance.Occupy(new Vector2Int(Mathf.RoundToInt(children[i].transform.position.x), Mathf.RoundToInt(children[i].transform.position.y)));
             }
         }    
     }
     bool CanPlacePart(Vector2Int basePos)
     {
+        bool supportedBlock = false;
         //Occupancy check and Ground check on all parts
         for (int i = 0; i < towerParts.Length; i++)
         {
@@ -132,27 +153,34 @@ public class TowerInitialiser : MonoBehaviour
             }
 
             Vector2Int pos = basePos + new Vector2Int(x, y);
-            //print(pos);
 
             if (GridManager.Instance.IsOccupied(pos))
                 return false;
 
-            //if (lowestPart.Contains(children[i]))
-            //{
-                
-            //    Vector2Int belowPos = pos + Vector2Int.down;
-            //    print(belowPos);
+            if (lowestPart.Contains(children[i]))
+            {
 
-            //    if (!GridManager.Instance.IsOccupied(belowPos))
-            //    {
-            //        print("Empty below");
-            //        return false;
-            //    }
-            //}
-            
-            
+                Vector2Int belowPos = pos + Vector2Int.down;
+                print(belowPos);
+
+                if (GridManager.Instance.IsOccupied(belowPos))
+                {
+                    supportedBlock = true;
+                }
+            }
+
+
         }
+        if(supportedBlock) return true;
+        return false;
+    }
 
-        return true;
+    Vector2Int GetGridPos(GameObject obj)
+    {
+        return new Vector2Int(
+        Mathf.RoundToInt(obj.transform.position.x),
+        Mathf.RoundToInt(obj.transform.position.y)
+    
+        );
     }
 }

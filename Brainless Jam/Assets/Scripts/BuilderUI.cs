@@ -34,7 +34,7 @@ public class BuilderUI : MonoBehaviour
             soExtractor.wasExtracted = false;
             foreach (GameObject block in allBlocks)
             {
-                if(block.GetComponent<SOChooser>().so == lastBlock)
+                if (block.GetComponent<SOChooser>().so == lastBlock)
                 {
                     UpdateAmount(block, 1);
                     return;
