@@ -97,7 +97,6 @@ public class BuilderUI : MonoBehaviour
         {
             GameObject currentTower = Instantiate(towerTemplate);
             currentTower.GetComponent<TowerInitialiser>().towerParts = towerToSpawn;
-            currentTower.GetComponent<TowerInitialiser>().BuildTower();
             notEmpty = false;
             buildUI.SetActive(false);
         }
