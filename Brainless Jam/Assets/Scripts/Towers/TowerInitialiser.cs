@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.U2D;
 
 
 public class TowerInitialiser : MonoBehaviour
@@ -15,7 +16,6 @@ public class TowerInitialiser : MonoBehaviour
     public LayerMask groundLayer;
     public LayerMask towerLayer;
     List<GameObject> children = new List<GameObject>();
-    List<SpriteRenderer> childrenSr = new List<SpriteRenderer>();
     public bool isOverlapping;
 
 
@@ -52,7 +52,6 @@ public class TowerInitialiser : MonoBehaviour
                 GameObject currentPart = Instantiate(partTemplate, relativePos, Quaternion.identity, transform);
                 currentPart.GetComponent<PartSOUser>().partSO = towerParts[i];
                 children.Add(currentPart);
-                childrenSr.Add(currentPart.GetComponent<SpriteRenderer>());
                 if (lowestPart.Count == 0 || currentPart.transform.position.y == lowestPart[0].transform.position.y)
                 {
                     lowestPart.Add(currentPart);
@@ -62,6 +61,10 @@ public class TowerInitialiser : MonoBehaviour
                     lowestPart.Clear();
                     lowestPart.Add(currentPart);
                 }
+            }
+            if (towerParts[i] == null)
+            {
+                children.Add(null);
             }
         }
 
@@ -93,9 +96,20 @@ public class TowerInitialiser : MonoBehaviour
 
             if (canPlace)
             {
-                for (int i = 0; i < children.Count; i++) { childrenSr[i].color = Color.white; }
+                for (int i = 0; i < children.Count; i++)
+                { 
+                    if(children[i] == null) continue;
+                    children[i].GetComponent<SpriteRenderer>().color = Color.white;
+                }
             }
-            else { for (int i = 0; i < children.Count; i++) { childrenSr[i].color = Color.red; } }
+            else 
+            { 
+                for (int i = 0; i < children.Count; i++) 
+                {
+                    if (children[i] == null) continue;
+                    children[i].GetComponent<SpriteRenderer>().color = Color.red; 
+                } 
+            }
         }
         if (Mouse.current.leftButton.wasPressedThisFrame && canPlace)
         {
@@ -103,6 +117,7 @@ public class TowerInitialiser : MonoBehaviour
             //Occupies the slots of all parts
             for (int i = 0;i < children.Count; i++)
             {
+                if (children[i] == null) continue;
                 GridManager.Instance.Occupy(new Vector2Int(Mathf.RoundToInt(children[i].transform.position.x), Mathf.RoundToInt(children[i].transform.position.y)));
             }
         }    
@@ -137,20 +152,20 @@ public class TowerInitialiser : MonoBehaviour
             if (GridManager.Instance.IsOccupied(pos))
                 return false;
 
-            //if (lowestPart.Contains(children[i]))
-            //{
-                
-            //    Vector2Int belowPos = pos + Vector2Int.down;
-            //    print(belowPos);
+            if (lowestPart.Contains(children[i]))
+            {
 
-            //    if (!GridManager.Instance.IsOccupied(belowPos))
-            //    {
-            //        print("Empty below");
-            //        return false;
-            //    }
-            //}
-            
-            
+                Vector2Int belowPos = pos + Vector2Int.down;
+                print(belowPos);
+
+                if (!GridManager.Instance.IsOccupied(belowPos))
+                {
+                    print("Empty below");
+                    return false;
+                }
+            }
+
+
         }
 
         return true;

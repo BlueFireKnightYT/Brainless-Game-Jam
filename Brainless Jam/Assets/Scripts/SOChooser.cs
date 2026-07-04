@@ -15,10 +15,18 @@ public class SOChooser : MonoBehaviour
     }
     public void getSO()
     {
-        if (amount > 0)
+        if (builderUI.selectedBlock != so && builderUI.selectedBlock == null)
         {
-            builderUI.selectedBlock = so;
-            builderUI.UpdateAmount(this.gameObject, -1);
-        }  
+            if (amount > 0)
+            {
+                builderUI.selectedBlock = so;
+                builderUI.UpdateAmount(this.gameObject, -1);
+            }
+        }
+        else if (builderUI.selectedBlock == so)
+        {
+            builderUI.UpdateAmount(this.gameObject, +1);
+            builderUI.selectedBlock = null;
+        }
     }
 }
