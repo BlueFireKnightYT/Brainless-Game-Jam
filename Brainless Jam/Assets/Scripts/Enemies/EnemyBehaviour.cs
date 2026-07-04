@@ -1,4 +1,6 @@
 using System;
+using System.Globalization;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
@@ -16,6 +18,15 @@ public class EnemyBehaviour : MonoBehaviour
         coll = GetComponent<Collider2D>();
         isMoving = true;
         canDamage = true;
+
+        GameObject player = GameObject.FindGameObjectWithTag(playerTag);
+        if ((player.transform.position.x - transform.position.x) < 0)
+        { 
+            isLeft = false;
+            transform.eulerAngles = new Vector3(0, 180, 0);
+        }
+        else
+            isLeft = true;
     }
     void Update()
     {
