@@ -135,7 +135,6 @@ public class TowerInitialiser : MonoBehaviour
                 if (children[i] == null) continue;
                 GridManager.Instance.Occupy(new Vector2Int(Mathf.RoundToInt(children[i].transform.position.x), Mathf.RoundToInt(children[i].transform.position.y)));
                 children[i].GetComponent<PartSOUser>().OnPlace();
-                
             }
             if (puzzlePieceAmount > 0)
             {
@@ -178,7 +177,7 @@ public class TowerInitialiser : MonoBehaviour
 
                 Vector2Int belowPos = pos + Vector2Int.down;
 
-                if (GridManager.Instance.IsOccupied(belowPos))
+                if (GridManager.Instance.IsOccupied(belowPos))  
                 {
                     supportedBlock = true;
                 }

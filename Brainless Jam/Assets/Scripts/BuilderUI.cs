@@ -132,6 +132,7 @@ public class BuilderUI : MonoBehaviour
                 gridBlocks[i].transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = new Vector2(160, 160);
             }
             buildUI.SetActive(false);
+            Time.timeScale = 1;
         }
         puzzlePieceAmount = 0;
         timePerEarn = 0;
@@ -149,5 +150,19 @@ public class BuilderUI : MonoBehaviour
         }
 
         text.text = PuzzlePieceManager.puzzlePieces.ToString();
+    }
+
+    public void ToggleUI()
+    {
+        if (buildUI.activeSelf == false)
+        {
+            buildUI.SetActive(true);
+            Time.timeScale = 0;
+        }
+        else
+        {
+            buildUI.SetActive(false);
+            Time.timeScale = 1;
+        }
     }
 }

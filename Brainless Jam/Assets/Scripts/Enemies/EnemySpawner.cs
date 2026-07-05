@@ -11,7 +11,8 @@ public class EnemySpawner : MonoBehaviour
     public bool canSpawn = false;
     bool hasStartedSpawning = false;
 
-    float spawnCooldown = 1;
+    public float spawnCooldown = 1;
+    int totalEnemiesSpawned;
 
 
     void Update()
@@ -26,6 +27,11 @@ public class EnemySpawner : MonoBehaviour
             StopCoroutine(spawnTimer());
             hasStartedSpawning = false;
         }
+        if(totalEnemiesSpawned >= 25)
+        {
+            spawnCooldown /= 1.1f;
+            totalEnemiesSpawned = 0;
+        }
     }
 
     IEnumerator spawnTimer()
@@ -37,6 +43,7 @@ public class EnemySpawner : MonoBehaviour
             GameObject spawnedEnemy = Instantiate(enemyPrefab, spawnPoints[chosenSpawnPoint].position, Quaternion.identity);
             allEnemies.Add(spawnedEnemy);
             allEnemies.RemoveAll(item => item == null);
+            totalEnemiesSpawned++;
         }
     }
 }

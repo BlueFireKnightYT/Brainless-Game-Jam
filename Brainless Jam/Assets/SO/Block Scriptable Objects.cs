@@ -7,6 +7,7 @@ public class BlockScriptableObjects : ScriptableObject
     public string nameObject;
     public int hp;
     public Sprite sprite;
+    public int cost;
 
     [Header("Attack")]
     public bool doesAttack;

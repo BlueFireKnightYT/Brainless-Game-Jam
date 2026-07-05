@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: BombBlock
   m_EditorClassIdentifier: Assembly-CSharp::BlockScriptableObjects
   nameObject: Bomb Block
-  hp: 0
+  hp: 25
   sprite: {fileID: 21300000, guid: 83e21d75b9d50f64cbbafbb243fbeb26, type: 3}
+  cost: 25
   doesAttack: 1
   damage: 20
   attackSpeed: 2

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4394160769766775428}
   m_Layer: 6
   m_Name: TowerTemplate
-  m_TagString: Untagged
+  m_TagString: Tower
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -117,3 +117,5 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   isOverlapping: 0
+  puzzlePieceAmount: 0
+  timePerEarn: 0

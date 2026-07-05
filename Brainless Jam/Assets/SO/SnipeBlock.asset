@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: SnipeBlock
   m_EditorClassIdentifier: Assembly-CSharp::BlockScriptableObjects
   nameObject: Snipe Block
-  hp: 0
+  hp: 25
   sprite: {fileID: 21300000, guid: 20fb589a76ee9c044afeef178705ec95, type: 3}
+  cost: 25
   doesAttack: 1
   damage: 20
   attackSpeed: 2
