@@ -10,7 +10,12 @@ public class BlockScriptableObjects : ScriptableObject
 
     [Header("Attack")]
     public bool doesAttack;
-    public float damage;
+    public int damage;
     public float attackSpeed;
+    public float bulletSpeed;
     public GameObject bulletPrefab;
+
+    [Header("Puzzle Pieces")]
+    public int piecesPerTime;
+    public int timePerEarn;
 }

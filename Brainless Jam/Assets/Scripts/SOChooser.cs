@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SOChooser : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class SOChooser : MonoBehaviour
     public BuilderUI builderUI;
     public int amount;
     TextMeshProUGUI text;
+    GameObject mouseblock;
 
     private void Start()
     {
@@ -21,12 +23,18 @@ public class SOChooser : MonoBehaviour
             {
                 builderUI.selectedBlock = so;
                 builderUI.UpdateAmount(this.gameObject, -1);
+                mouseblock = Instantiate(builderUI.mouseBlockPrefab, transform.parent.parent);
+                mouseblock.GetComponent<Image>().sprite = so.sprite;
+                builderUI.puzzlePieceAmount += so.piecesPerTime;
+                builderUI.timePerEarn += so.timePerEarn;
+                builderUI.currentMouseBlock = mouseblock;
             }
         }
         else if (builderUI.selectedBlock == so)
         {
             builderUI.UpdateAmount(this.gameObject, +1);
             builderUI.selectedBlock = null;
+            if (mouseblock != null) Destroy(mouseblock);
         }
     }
 }

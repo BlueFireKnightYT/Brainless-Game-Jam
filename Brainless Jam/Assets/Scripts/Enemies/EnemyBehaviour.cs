@@ -7,6 +7,7 @@ public class EnemyBehaviour : MonoBehaviour
 {
     public bool isLeft;
     public bool isMoving;
+    public int health;
     Rigidbody2D rb;
     Collider2D coll;
     public string towerTag;
@@ -40,6 +41,11 @@ public class EnemyBehaviour : MonoBehaviour
             {
                 rb.linearVelocityX = -1;
             }
+        }
+
+        if(health <= 0)
+        {
+            Destroy(this.gameObject);
         }
     }
 

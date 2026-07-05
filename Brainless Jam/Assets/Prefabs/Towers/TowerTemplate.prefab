@@ -105,6 +105,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerInitialiser
   towerParts: []
+  towerPartsRotations: []
+  towerPartsScales: []
   partTemplate: {fileID: 3432450465977546226, guid: 04e55ba4019e24545ad2dda8851bcf86, type: 3}
   canPlace: 0
   lowestPart: []
@@ -114,14 +116,4 @@ MonoBehaviour:
   towerLayer:
     serializedVersion: 2
     m_Bits: 64
-  children:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   isOverlapping: 0

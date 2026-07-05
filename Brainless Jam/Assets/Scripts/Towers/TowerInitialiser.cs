@@ -1,14 +1,15 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.U2D;
 
 
 public class TowerInitialiser : MonoBehaviour
 {
     public BlockScriptableObjects[] towerParts;
+    public Quaternion[] towerPartsRotations;
+    public Vector3[] towerPartsScales;
     public GameObject partTemplate;
 
     bool placed;
@@ -19,9 +20,14 @@ public class TowerInitialiser : MonoBehaviour
     List<GameObject> children = new List<GameObject>();
     public bool isOverlapping;
 
+    public int puzzlePieceAmount;
+    public int timePerEarn;
+        
+
 
     private void Start()
     {
+        
         BuildTower();
     }
     public void BuildTower()
@@ -50,8 +56,12 @@ public class TowerInitialiser : MonoBehaviour
             Vector2 relativePos = new Vector2(x, y);
             if(towerParts[i] != null)
             {
-                GameObject currentPart = Instantiate(partTemplate, relativePos, Quaternion.identity, transform);
+                GameObject currentPart = Instantiate(partTemplate, relativePos, towerPartsRotations[i], transform);
                 currentPart.GetComponent<PartSOUser>().partSO = towerParts[i];
+                if (towerPartsScales[i] == new Vector3(1, -1, 1))
+                {
+                    currentPart.GetComponent<SpriteRenderer>().flipY = true;
+                }
                 children.Add(currentPart);
             }
             if (towerParts[i] == null)
@@ -116,7 +126,7 @@ public class TowerInitialiser : MonoBehaviour
                 } 
             }
         }
-        if (Mouse.current.leftButton.wasPressedThisFrame && canPlace)
+        if (Mouse.current.leftButton.wasPressedThisFrame && canPlace && !placed)
         {
             placed = true;
             //Occupies the slots of all parts
@@ -124,6 +134,12 @@ public class TowerInitialiser : MonoBehaviour
             {
                 if (children[i] == null) continue;
                 GridManager.Instance.Occupy(new Vector2Int(Mathf.RoundToInt(children[i].transform.position.x), Mathf.RoundToInt(children[i].transform.position.y)));
+                children[i].GetComponent<PartSOUser>().OnPlace();
+                
+            }
+            if (puzzlePieceAmount > 0)
+            {
+                StartCoroutine(PuzzlePieceEarner());
             }
         }    
     }
@@ -161,7 +177,6 @@ public class TowerInitialiser : MonoBehaviour
             {
 
                 Vector2Int belowPos = pos + Vector2Int.down;
-                print(belowPos);
 
                 if (GridManager.Instance.IsOccupied(belowPos))
                 {
@@ -183,4 +198,15 @@ public class TowerInitialiser : MonoBehaviour
     
         );
     }
+
+    IEnumerator PuzzlePieceEarner()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(timePerEarn);
+            PuzzlePieceManager.puzzlePieces += puzzlePieceAmount;
+            print(PuzzlePieceManager.puzzlePieces);
+        }
+    }
+
 }
