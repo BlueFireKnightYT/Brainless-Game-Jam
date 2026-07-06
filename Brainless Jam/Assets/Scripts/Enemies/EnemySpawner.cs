@@ -29,7 +29,7 @@ public class EnemySpawner : MonoBehaviour
         }
         if(totalEnemiesSpawned >= 25)
         {
-            spawnCooldown /= 1.1f;
+            spawnCooldown /= 1.2f;
             totalEnemiesSpawned = 0;
         }
     }
@@ -41,6 +41,7 @@ public class EnemySpawner : MonoBehaviour
             yield return new WaitForSeconds(spawnCooldown);
             int chosenSpawnPoint = Random.Range(0, spawnPoints.Length);
             GameObject spawnedEnemy = Instantiate(enemyPrefab, spawnPoints[chosenSpawnPoint].position, Quaternion.identity);
+            spawnedEnemy.GetComponent<EnemyPathMover>().cEP = spawnPoints[chosenSpawnPoint].GetComponent<CreateEnemyPath>();
             allEnemies.Add(spawnedEnemy);
             allEnemies.RemoveAll(item => item == null);
             totalEnemiesSpawned++;

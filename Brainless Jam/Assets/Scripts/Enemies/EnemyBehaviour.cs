@@ -35,17 +35,17 @@ public class EnemyBehaviour : MonoBehaviour
     }
     void Update()
     {
-        if (isMoving)
-        {
-            if (isLeft)
-            {
-                rb.linearVelocityX = 1;
-            }
-            else
-            {
-                rb.linearVelocityX = -1;
-            }
-        }
+        //if (isMoving)
+        //{
+        //    if (isLeft)
+        //    {
+        //        rb.linearVelocityX = 1;
+        //    }
+        //    else
+        //    {
+        //        rb.linearVelocityX = -1;
+        //    }
+        //}
 
         if(health <= 0)
         {
@@ -56,12 +56,12 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag(towerTag))
-        {
-            isMoving = false;
-            rb.linearVelocityX = 0;
-            StartCoroutine(DamageTowerPart(damage, collision.GetComponent<PartSOUser>()));
-        }
+        //if (collision.gameObject.CompareTag(towerTag))
+        //{
+        //    isMoving = false;
+        //    rb.linearVelocityX = 0;
+        //    StartCoroutine(DamageTowerPart(damage, collision.GetComponent<PartSOUser>()));
+        //}
         if (collision.gameObject.CompareTag(playerTag) && canDamage)
         {
             canDamage = false;
@@ -82,7 +82,7 @@ public class EnemyBehaviour : MonoBehaviour
             if (partScript.dead)
             {
                 isMoving = true;
-                StopCoroutine(DamageTowerPart(damage, partScript));
+                StopCoroutine("DamageTowerPart");
             }
         } 
     }

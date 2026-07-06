@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5958671935243984897}
   - component: {fileID: 8710043436245645162}
   - component: {fileID: 6550756776458980192}
+  - component: {fileID: 3611730894330655880}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -112,6 +113,7 @@ MonoBehaviour:
   health: 25
   puzzlePieceReward: 3
   damage: 5
+  speed: 1
   towerTag: Tower
   playerTag: Player
 --- !u!50 &5958671935243984897
@@ -221,6 +223,19 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.5, y: 0.16682178}
-  m_Size: {x: 1, y: 1.0890232}
+  m_Offset: {x: 0.5, y: 0}
+  m_Size: {x: 1, y: 0.8}
   m_Direction: 0
+--- !u!114 &3611730894330655880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8495744514238583627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a19fba3da7a48cb4390292163695f6ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyPathMover
+  cEP: {fileID: 0}
