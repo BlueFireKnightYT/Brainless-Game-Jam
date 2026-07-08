@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class SOExtractor : MonoBehaviour
 {
     public BlockScriptableObjects blockSO;
+    public Vector2Int gridIndex;
     SpriteRenderer sr;
     Image image;
 

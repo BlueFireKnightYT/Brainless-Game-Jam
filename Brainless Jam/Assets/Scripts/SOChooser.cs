@@ -25,7 +25,7 @@ public class SOChooser : MonoBehaviour
             {
                 builderUI.selectedBlock = so;
                 builderUI.UpdateAmount(this.gameObject, -1);
-                mouseblock = Instantiate(builderUI.mouseBlockPrefab, transform.parent.parent);
+                mouseblock = Instantiate(builderUI.mouseBlockPrefab, transform.parent.parent.parent.parent.parent.parent);
                 mouseblock.GetComponent<Image>().sprite = so.sprite;
                 builderUI.puzzlePieceAmount += so.piecesPerTime;
                 if(so.timePerEarn > 0) { builderUI.timePerEarn = so.timePerEarn;  }

@@ -23,3 +23,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 0}
   piecesPerTime: 0
   timePerEarn: 0
+  objID: 0
+  synergyList:
+  - SynergyName: Testing
+    synergyBlockID: 1

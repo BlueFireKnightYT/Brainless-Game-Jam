@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Presets;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static BlockScriptableObjects;
 
 
 public class TowerInitialiser : MonoBehaviour
@@ -11,6 +13,7 @@ public class TowerInitialiser : MonoBehaviour
     public Quaternion[] towerPartsRotations;
     public Vector3[] towerPartsScales;
     public GameObject partTemplate;
+    BuilderUI buildUI;
 
     bool placed;
     public bool canPlace;
@@ -22,12 +25,27 @@ public class TowerInitialiser : MonoBehaviour
 
     public int puzzlePieceAmount;
     public int timePerEarn;
-        
+    public List<Vector2Int> blockLayout;
+    string presetName;
 
+
+    bool MatchesPreset(List<Vector2Int> current, List<Vector2Int> preset)
+    {
+        return current.Count == preset.Count &&
+               current.All(pos => preset.Contains(pos));
+    }
 
     private void Start()
     {
-        
+        buildUI = GameObject.FindGameObjectWithTag("Canvas").GetComponent<BuilderUI>();
+        foreach (BuilderUI.Preset preset in buildUI.presets)
+        {
+            if (MatchesPreset(blockLayout, preset.parts))
+            {
+                Debug.Log("Activated: " + preset.presetName);
+                presetName = preset.presetName;
+            }
+        }
         BuildTower();
     }
     public void BuildTower()
@@ -58,6 +76,7 @@ public class TowerInitialiser : MonoBehaviour
             {
                 GameObject currentPart = Instantiate(partTemplate, relativePos, towerPartsRotations[i], transform);
                 currentPart.GetComponent<PartSOUser>().partSO = towerParts[i];
+                StartCoroutine(ApplyBonus(presetName, currentPart.GetComponent<PartSOUser>()));
                 if (towerPartsScales[i] == new Vector3(1, -1, 1))
                 {
                     currentPart.GetComponent<SpriteRenderer>().flipY = true;
@@ -83,7 +102,20 @@ public class TowerInitialiser : MonoBehaviour
             {
                 lowestPart.Add(currentPart);
             }
+
+            if(currentPart.GetComponent<PartSOUser>().partSO.synergyList.Count != 0)
+            {
+                Synergy synergy = FindSynergy(children, currentPart.GetComponent<PartSOUser>().partSO);
+
+                if (synergy != null)
+                {
+                    Debug.Log("Activated: " + synergy.SynergyName);
+                    StartCoroutine(ApplySynergy(synergy.SynergyName, currentPart.GetComponent<PartSOUser>()));
+                }
+            }
+            
         }
+
     }
 
     private void Update()
@@ -204,8 +236,39 @@ public class TowerInitialiser : MonoBehaviour
         {
             yield return new WaitForSeconds(timePerEarn);
             PuzzlePieceManager.puzzlePieces += puzzlePieceAmount;
-            print(PuzzlePieceManager.puzzlePieces);
         }
     }
 
+    IEnumerator ApplyBonus(string presetName, PartSOUser partSO)
+    {
+        yield return new WaitForSeconds(0.1f);
+        
+        if (presetName == "Castle")
+        {
+            partSO.hp *= 2;
+        }
+        if(presetName == "Wheel")
+        {
+            partSO.attackSpeed /= 1.5f;
+        }
+    }
+
+    Synergy FindSynergy(List<GameObject> objects, BlockScriptableObjects blockSO)
+    {
+        return blockSO.synergyList.FirstOrDefault(s =>
+        objects.Any(obj => obj != null && obj.GetComponent<PartSOUser>() != null && obj.GetComponent<PartSOUser>().partSO.objID == s.synergyBlockID));
+    }
+
+    IEnumerator ApplySynergy(string synergyName, PartSOUser partSO)
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        if(synergyName == "Bad Idea")
+        {
+            PartSOUser partScript = partSO.GetComponent<PartSOUser>();
+            partScript.explodeRadius *= 2;
+            partScript.damage *= 2;
+            partScript.duration /= 2;
+        }
+    }
 }

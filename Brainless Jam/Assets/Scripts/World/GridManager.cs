@@ -19,6 +19,10 @@ public class GridManager : MonoBehaviour
 
         foreach (var col in colliders)
         {
+            if (col.isTrigger)
+            {
+                continue;
+            }
             Bounds b = col.bounds;
 
             int minX = Mathf.RoundToInt(b.min.x);

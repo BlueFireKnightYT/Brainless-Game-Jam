@@ -23,3 +23,5 @@ MonoBehaviour:
   bulletPrefab: {fileID: 0}
   piecesPerTime: 1
   timePerEarn: 1
+  objID: 4
+  synergyList: []
