@@ -107,8 +107,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   damage: 0
-  explodes: 0
   size: 0
+  parentBlock: {fileID: 0}
 --- !u!61 &6581954669153593461
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -153,7 +153,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.8, y: 0.8}
   m_EdgeRadius: 0
 --- !u!50 &2189554618121923412
 Rigidbody2D:

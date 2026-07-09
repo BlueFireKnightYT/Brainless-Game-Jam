@@ -57,6 +57,10 @@ public class GridManager : MonoBehaviour
     {
         occupied.Add(pos);
     }
+    public void Unoccupy(Vector2Int pos)
+    {
+        occupied.Remove(pos);
+    }
 
     public void Clear()
     {

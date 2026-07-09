@@ -7,6 +7,8 @@ TagManager:
   - Tower
   - Ground
   - Enemy
+  - Canvas
+  - Shield
   layers:
   - Default
   - TransparentFX

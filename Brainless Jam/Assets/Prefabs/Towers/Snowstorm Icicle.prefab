@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 749013412974504587}
   - component: {fileID: 6581954669153593461}
   - component: {fileID: 2189554618121923412}
-  - component: {fileID: 2421790009436644121}
+  - component: {fileID: 2622330961519886278}
   m_Layer: 0
-  m_Name: Bomb
+  m_Name: Snowstorm Icicle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 0.05, y: 0.05, z: 0.15001501}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bd07b5cda5283094fb248a3d72a6d66b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -132,7 +132,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 10, y: 15}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -167,7 +167,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &2421790009436644121
+--- !u!114 &2622330961519886278
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -179,16 +179,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f81e75eb0fafe0545abf2a10ad9eda8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerBullet
-  damage: 0
+  damage: 5
   size: 0
-  duration: 0
+  duration: 1
+  amountPierced: 0
+  piercing: 1
   parentBlock: {fileID: 0}
+  bonusPieces: 0
   activatesExplosion: 0
   explodeRadius: 0
-  activatesSlow: 0
-  slowModifier: 0
-  slowTime: 0
+  explodePierce: 0
+  activatesSlow: 1
+  slowModifier: 1.5
+  slowTime: 5
   activatesDOT: 0
   burnDamage: 0
   burnRepeats: 0
   burnSpeed: 0
+  activatesReverse: 0
+  reverseTime: 0
+  reverseSpeed: 0
+  friendlyFire: 0
+  shootsProjectiles: 0
+  projectile: {fileID: 0}

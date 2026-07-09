@@ -15,13 +15,32 @@ MonoBehaviour:
   nameObject: Brainless Block
   hp: 20
   sprite: {fileID: 21300000, guid: a761b22f7879fe54fb7675edaf2d4488, type: 3}
-  cost: 25
+  cost: 50
+  spawnsObject: 0
+  obj: {fileID: 0}
+  replaceTime: 0
   doesAttack: 0
   damage: 0
   attackSpeed: 0
   bulletSpeed: 0
+  bulletDuration: 0
   bulletPrefab: {fileID: 0}
-  piecesPerTime: 0
-  timePerEarn: 0
+  bulletAmount: 0
+  piercing: 0
+  activatesExplosion: 0
+  explosionRadius: 0
+  explosionPierce: 0
+  activatesDOT: 0
+  damagePerRepeat: 0
+  repeats: 0
+  damageSpeed: 0
+  activatesSlowness: 0
+  slowModifier: 0
+  slowTime: 0
+  activatesReverse: 0
+  reverseSpeed: 0
+  reverseTime: 0
+  enableFriendlyFire: 0
+  bonusPieces: 0
   objID: 9
   synergyList: []

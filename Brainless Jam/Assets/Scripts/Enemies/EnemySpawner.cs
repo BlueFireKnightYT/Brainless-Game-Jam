@@ -27,9 +27,9 @@ public class EnemySpawner : MonoBehaviour
             StopCoroutine(spawnTimer());
             hasStartedSpawning = false;
         }
-        if(totalEnemiesSpawned >= 25)
+        if(totalEnemiesSpawned >= 5)
         {
-            spawnCooldown /= 1.2f;
+            spawnCooldown /= 1.05f;
             totalEnemiesSpawned = 0;
         }
     }

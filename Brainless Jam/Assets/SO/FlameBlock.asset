@@ -16,12 +16,33 @@ MonoBehaviour:
   hp: 0
   sprite: {fileID: 21300000, guid: 202ce64e121f05a4faf3f221a2ad08db, type: 3}
   cost: 30
-  doesAttack: 0
-  damage: 0
-  attackSpeed: 0
-  bulletSpeed: 0
-  bulletPrefab: {fileID: 0}
-  piecesPerTime: 0
-  timePerEarn: 0
+  spawnsObject: 0
+  obj: {fileID: 0}
+  replaceTime: 0
+  doesAttack: 1
+  damage: 1
+  attackSpeed: 3
+  bulletSpeed: 1
+  bulletDuration: 0.2
+  bulletPrefab: {fileID: 3888005758566614634, guid: aa4d0f73a4d05964abec7427e4b573eb, type: 3}
+  bulletAmount: 5
+  piercing: 5
+  activatesExplosion: 0
+  explosionRadius: 0
+  explosionPierce: 0
+  activatesDOT: 1
+  damagePerRepeat: 5
+  repeats: 5
+  damageSpeed: 1
+  activatesSlowness: 0
+  slowModifier: 0
+  slowTime: 0
+  activatesReverse: 0
+  reverseSpeed: 0
+  reverseTime: 0
+  enableFriendlyFire: 0
+  bonusPieces: 0
   objID: 6
-  synergyList: []
+  synergyList:
+  - SynergyName: Frostburn
+    synergyBlockID: 05000000

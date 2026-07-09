@@ -16,16 +16,33 @@ MonoBehaviour:
   hp: 25
   sprite: {fileID: 21300000, guid: 83e21d75b9d50f64cbbafbb243fbeb26, type: 3}
   cost: 25
+  spawnsObject: 0
+  obj: {fileID: 0}
+  replaceTime: 0
   doesAttack: 1
-  damage: 15
+  damage: 5
   attackSpeed: 2
   bulletSpeed: 0.5
   bulletDuration: 0.5
   bulletPrefab: {fileID: 3888005758566614634, guid: 157ac55f822c70349aee5a7993470aed, type: 3}
+  bulletAmount: 1
+  piercing: 1
+  activatesExplosion: 1
   explosionRadius: 2
-  piecesPerTime: 0
-  timePerEarn: 0
+  explosionPierce: 10
+  activatesDOT: 0
+  damagePerRepeat: 0
+  repeats: 0
+  damageSpeed: 0
+  activatesSlowness: 0
+  slowModifier: 0
+  slowTime: 0
+  activatesReverse: 0
+  reverseSpeed: 0
+  reverseTime: 0
+  enableFriendlyFire: 0
+  bonusPieces: 0
   objID: 2
   synergyList:
   - SynergyName: Bad Idea
-    synergyBlockID: 6
+    synergyBlockID: 06000000

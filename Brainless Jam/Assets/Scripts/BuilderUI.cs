@@ -21,7 +21,9 @@ public class BuilderUI : MonoBehaviour
     [Header("Presets")]
     public Preset[] presets;
 
-
+    [Header("Text Components")]
+    public TextMeshProUGUI synergyText;
+    public TextMeshProUGUI layoutBonusText;
 
     public GameObject[] allBlocks;
     public GameObject[] gridBlocks;
@@ -31,7 +33,13 @@ public class BuilderUI : MonoBehaviour
     public GameObject mouseBlockPrefab;
     public GameObject currentMouseBlock;
 
+    [Header("UI Parts")]
     public GameObject buildUI;
+    public GameObject removeUI;
+    public GameObject moveUI;
+
+    public bool isRemoving;
+    public bool isMoving;
 
     public Quaternion[] storedPartRotations;
     public Vector3[] storedPartScales;
@@ -157,6 +165,8 @@ public class BuilderUI : MonoBehaviour
             tI.towerPartsScales = storedPartScales;
             tI.puzzlePieceAmount = puzzlePieceAmount;
             tI.timePerEarn = timePerEarn;
+            tI.synergyText = synergyText;
+            tI.layoutBonusText = layoutBonusText;
             notEmpty = false;
             for (int i = 0; i < gridBlocks.Length; i++)
             {
@@ -195,11 +205,62 @@ public class BuilderUI : MonoBehaviour
         if (buildUI.activeSelf == false)
         {
             buildUI.SetActive(true);
+            removeUI.SetActive(false);
+            moveUI.SetActive(false);
             Time.timeScale = 0;
         }
         else
         {
             buildUI.SetActive(false);
+            Time.timeScale = 1;
+        }
+    }
+
+    public void ToggleMoveUI()
+    {
+        if (moveUI.activeSelf == false)
+        {
+            moveUI.SetActive(true);
+            removeUI.SetActive(false);
+            buildUI.SetActive(false);
+            Time.timeScale = 0;
+            isMoving = true;
+        }
+        else
+        {
+            moveUI.SetActive(false);
+            Time.timeScale = 1;
+            isMoving = false;
+        }
+    }
+
+    public void ToggleRemoveUI()
+    {
+        if (removeUI.activeSelf == false)
+        {
+            removeUI.SetActive(true);
+            moveUI.SetActive(false);
+            buildUI.SetActive(false);
+            Time.timeScale = 0;
+            isRemoving = true;
+        }
+        else
+        {
+            removeUI.SetActive(false);
+            Time.timeScale = 1;
+            isRemoving = false;
+        }
+    }
+
+    public void Toggle2xSpeed()
+    {
+        if(Time.timeScale == 1)
+        {
+            
+            Time.timeScale = 2;
+        }
+        else if(Time.timeScale == 2)
+        {
             Time.timeScale = 1;
         }
     }

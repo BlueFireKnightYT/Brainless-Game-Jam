@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.Presets;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static BlockScriptableObjects;
@@ -14,6 +14,12 @@ public class TowerInitialiser : MonoBehaviour
     public Vector3[] towerPartsScales;
     public GameObject partTemplate;
     BuilderUI buildUI;
+    int totalBonusPieces;
+    int totalCost;
+
+    [Header("Text Components")]
+    public TextMeshProUGUI synergyText;
+    public TextMeshProUGUI layoutBonusText;
 
     bool placed;
     public bool canPlace;
@@ -42,7 +48,7 @@ public class TowerInitialiser : MonoBehaviour
         {
             if (MatchesPreset(blockLayout, preset.parts))
             {
-                Debug.Log("Activated: " + preset.presetName);
+                layoutBonusText.text = ("Activated: " + preset.presetName + " Layout Bonus!");
                 presetName = preset.presetName;
             }
         }
@@ -76,6 +82,8 @@ public class TowerInitialiser : MonoBehaviour
             {
                 GameObject currentPart = Instantiate(partTemplate, relativePos, towerPartsRotations[i], transform);
                 currentPart.GetComponent<PartSOUser>().partSO = towerParts[i];
+                totalBonusPieces += currentPart.GetComponent<PartSOUser>().partSO.bonusPieces;
+                totalCost += currentPart.GetComponent<PartSOUser>().partSO.cost;
                 StartCoroutine(ApplyBonus(presetName, currentPart.GetComponent<PartSOUser>()));
                 if (towerPartsScales[i] == new Vector3(1, -1, 1))
                 {
@@ -103,13 +111,15 @@ public class TowerInitialiser : MonoBehaviour
                 lowestPart.Add(currentPart);
             }
 
+            currentPart.GetComponent<PartSOUser>().bonusPieces = totalBonusPieces;
+
             if(currentPart.GetComponent<PartSOUser>().partSO.synergyList.Count != 0)
             {
                 Synergy synergy = FindSynergy(children, currentPart.GetComponent<PartSOUser>().partSO);
 
                 if (synergy != null)
                 {
-                    Debug.Log("Activated: " + synergy.SynergyName);
+                    synergyText.text = ("Activated: " + synergy.SynergyName + " Synergy!");
                     StartCoroutine(ApplySynergy(synergy.SynergyName, currentPart.GetComponent<PartSOUser>()));
                 }
             }
@@ -160,6 +170,7 @@ public class TowerInitialiser : MonoBehaviour
         }
         if (Mouse.current.leftButton.wasPressedThisFrame && canPlace && !placed)
         {
+
             placed = true;
             //Occupies the slots of all parts
             for (int i = 0;i < children.Count; i++)
@@ -172,7 +183,43 @@ public class TowerInitialiser : MonoBehaviour
             {
                 StartCoroutine(PuzzlePieceEarner());
             }
-        }    
+            synergyText.text = null;
+            layoutBonusText.text = null;
+        }
+        if (Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+
+            RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
+
+            if (hit.collider != null && hit.collider.gameObject.transform.parent == this.gameObject.transform)
+            {
+                if (buildUI.isRemoving)
+                {
+                    PuzzlePieceManager.puzzlePieces += totalCost / 2;
+                    for (int i = 0; i < children.Count; i++)
+                    {
+                        if (children[i] == null) continue;
+                        GridManager.Instance.Unoccupy(new Vector2Int(Mathf.RoundToInt(children[i].transform.position.x), Mathf.RoundToInt(children[i].transform.position.y)));
+                    }
+                    Destroy(this.gameObject);
+                }
+                if (buildUI.isMoving)
+                {
+                    if(PuzzlePieceManager.puzzlePieces >= 10)
+                    {
+                        buildUI.ToggleMoveUI();
+                        for (int i = 0; i < children.Count; i++)
+                        {
+                            if (children[i] == null) continue;
+                            GridManager.Instance.Unoccupy(new Vector2Int(Mathf.RoundToInt(children[i].transform.position.x), Mathf.RoundToInt(children[i].transform.position.y)));
+                        }
+                        placed = false;
+                    }
+                }
+                
+            }
+        }
     }
     bool CanPlacePart(Vector2Int basePos)
     {
@@ -221,7 +268,7 @@ public class TowerInitialiser : MonoBehaviour
         return false;
     }
 
-    Vector2Int GetGridPos(GameObject obj)
+    public Vector2Int GetGridPos(GameObject obj)
     {
         return new Vector2Int(
         Mathf.RoundToInt(obj.transform.position.x),
@@ -256,7 +303,14 @@ public class TowerInitialiser : MonoBehaviour
     Synergy FindSynergy(List<GameObject> objects, BlockScriptableObjects blockSO)
     {
         return blockSO.synergyList.FirstOrDefault(s =>
-        objects.Any(obj => obj != null && obj.GetComponent<PartSOUser>() != null && obj.GetComponent<PartSOUser>().partSO.objID == s.synergyBlockID));
+            s.synergyBlockID.All(id =>
+                objects.Any(obj =>
+                    obj != null &&
+                    obj.GetComponent<PartSOUser>() != null &&
+                    obj.GetComponent<PartSOUser>().partSO.objID == id
+                )
+            )
+        );
     }
 
     IEnumerator ApplySynergy(string synergyName, PartSOUser partSO)
@@ -269,6 +323,48 @@ public class TowerInitialiser : MonoBehaviour
             partScript.explodeRadius *= 2;
             partScript.damage *= 2;
             partScript.duration /= 2;
+        }
+
+        if(synergyName == "Frostburn")
+        {
+            PartSOUser partScript = partSO.GetComponent<PartSOUser>();
+            if (partScript.activatesDOT)
+            {
+                partScript.activatesSlowness = true;
+                partScript.slowModifier = .75f;
+                partScript.slowTime = 3;
+            }
+            if (partScript.activatesSlowness)
+            {
+                partScript.activatesDOT = true;
+                partScript.damagePerRepeat = 3;
+                partScript.repeats = 3;
+                partScript.damageSpeed = 1;
+            }
+        }
+        if(synergyName == "Sky Piercer")
+        {
+            PartSOUser partScript = partSO.GetComponent<PartSOUser>();
+            partScript.piercing = 4;
+            partScript.bulletSpeed *= 2;
+        }
+        if(synergyName == "Brainless Storm")
+        {
+            PartSOUser partScript = partSO.GetComponent<PartSOUser>();
+            partScript.friendlyFire = true;
+            partScript.reverseSpeed = 1;
+            partScript.reverseTime = 5;
+        }
+        if(synergyName == "Minigun")
+        {
+            PartSOUser partScript = partSO.GetComponent<PartSOUser>();
+            partScript.projectileAmount = 4;
+            partScript.attackSpeed = 2;
+        }
+        if(synergyName == "Snowstorm")
+        {
+            PartSOUser partScript = partSO.GetComponent<PartSOUser>();
+            partScript.shootsProjectiles = true;
         }
     }
 }

@@ -1,12 +1,14 @@
+using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 
 public class EnemyPathMover : MonoBehaviour
 {
     EnemyBehaviour eB;
     public CreateEnemyPath cEP;
-    List<Vector2Int> path;
+    public List<Vector2Int> path;
+    public bool reversed;
+    public bool breakBlocks;
 
     private int currentIndex = 0;
     private Vector3 targetWorldPos;
@@ -45,7 +47,11 @@ public class EnemyPathMover : MonoBehaviour
     void Update()
     {
         if (path == null || path.Count == 0)
+        {
+            RecalculatePath();
             return;
+        }
+            
 
         if (!IsPathValid())
         {
@@ -62,7 +68,6 @@ public class EnemyPathMover : MonoBehaviour
             WorldToGrid(transform.position),
             WorldToGrid(cEP.player.transform.position)
         );
-
         currentIndex = 0;
     }
 
@@ -77,15 +82,15 @@ public class EnemyPathMover : MonoBehaviour
         // reached current node
         if (Vector3.Distance(transform.position, targetWorldPos) < 0.05f)
         {
-            currentIndex++;
+            if (reversed) currentIndex--;
+            else currentIndex++;
 
             if (currentIndex >= path.Count)
             {
                 path = null; // done
                 return;
             }
-
-            targetWorldPos = GridToWorld(path[currentIndex]);
+            targetWorldPos = GridToWorld(path[currentIndex]);    
         }
     }
 
@@ -98,5 +103,23 @@ public class EnemyPathMover : MonoBehaviour
         }
 
         return true;
+    }
+
+    public void ActivateReverse(float time, float speed, bool friendlyFire)
+    {
+        StartCoroutine(ApplyReverse(time, speed, friendlyFire));
+    }
+
+    IEnumerator ApplyReverse(float time, float speed, bool friendlyFire)
+    {
+        reversed = true;
+        eB.speed *= speed;
+        currentIndex--;
+        targetWorldPos = GridToWorld(path[currentIndex]);
+        if (friendlyFire) eB.friendlyFire = true;
+        yield return new WaitForSeconds(time);
+        eB.speed /= speed;
+        reversed = false;
+        eB.friendlyFire = false;
     }
 }
