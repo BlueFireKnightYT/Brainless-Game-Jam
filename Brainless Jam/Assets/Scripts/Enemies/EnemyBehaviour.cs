@@ -1,7 +1,4 @@
-using System;
 using System.Collections;
-using System.Globalization;
-using Unity.Mathematics;
 using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
@@ -22,6 +19,8 @@ public class EnemyBehaviour : MonoBehaviour
     public bool slowed;
     public bool friendlyFire;
     public bool breakBlocks;
+    public bool isCamouflaged;
+    public bool immuneToFire;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();

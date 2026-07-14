@@ -14,7 +14,6 @@ public class CreateEnemyPath : MonoBehaviour
     void StartPathFinding()
     {
         path = ePF.FindPath(new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y)), new Vector2Int(Mathf.RoundToInt(player.transform.position.x), Mathf.RoundToInt(player.transform.position.y)));
-
     }
 
     void OnDrawGizmos()

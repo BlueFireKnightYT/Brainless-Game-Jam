@@ -15,7 +15,7 @@ public class EnemyPathfinder : MonoBehaviour
         Vector2Int.right
     };
 
-    public List<Vector2Int> GetNeighbours(Vector2Int pos)
+    public List<Vector2Int> GetNeighbours(Vector2Int pos, HashSet<Vector2Int> extraBlocked = null)
     {
         List<Vector2Int> neighbours = new();
 
@@ -23,7 +23,9 @@ public class EnemyPathfinder : MonoBehaviour
         {
             Vector2Int next = pos + dir;
 
-            if (!gridManager.IsOccupied(next))
+            bool blockedByGrid = gridManager.IsOccupied(next);
+            bool blockedByTower = extraBlocked != null && extraBlocked.Contains(next);
+            if (!blockedByGrid && !blockedByTower)
             {
                 neighbours.Add(next);
             }
@@ -54,7 +56,7 @@ public class EnemyPathfinder : MonoBehaviour
         }
     }
 
-    public List<Vector2Int> FindPath(Vector2Int start, Vector2Int target)
+    public List<Vector2Int> FindPath(Vector2Int start, Vector2Int target, HashSet<Vector2Int> extraBlocked = null)
 {
         List<GridNode> openSet = new();
         HashSet<Vector2Int> closedSet = new();
@@ -85,7 +87,7 @@ public class EnemyPathfinder : MonoBehaviour
             if (current.position == target)
                 return RetracePath(current);
 
-            foreach (var neighbourPos in GetNeighbours(current.position))
+            foreach (var neighbourPos in GetNeighbours(current.position, extraBlocked))
             {
                 if (closedSet.Contains(neighbourPos))
                     continue;
@@ -111,8 +113,6 @@ public class EnemyPathfinder : MonoBehaviour
                 }
             }
         }
-        Debug.Log("Start blocked: " + gridManager.IsOccupied(start));
-        Debug.Log("Target blocked: " + gridManager.IsOccupied(target));
         return null;
     }
 

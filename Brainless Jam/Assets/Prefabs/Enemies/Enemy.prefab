@@ -119,6 +119,7 @@ MonoBehaviour:
   DOTActive: 0
   slowed: 0
   friendlyFire: 0
+  breakBlocks: 0
 --- !u!114 &3611730894330655880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,7 +133,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyPathMover
   cEP: {fileID: 0}
+  path: []
   reversed: 0
+  breakBlocks: 0
+  stepsPerMove: 1
 --- !u!50 &5958671935243984897
 Rigidbody2D:
   serializedVersion: 5

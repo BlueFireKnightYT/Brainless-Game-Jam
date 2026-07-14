@@ -34,6 +34,9 @@ public class TowerBullet : MonoBehaviour
     public bool shootsProjectiles;
     public GameObject projectile;
 
+    public bool canHitCamo;
+    public bool isFire;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (hit)
@@ -43,42 +46,43 @@ public class TowerBullet : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy") && lastHitEnemy != collision.gameObject)
         {
             EnemyBehaviour behaviourScript = collision.gameObject.GetComponent<EnemyBehaviour>();
-            behaviourScript.health -= damage;
-            if((behaviourScript.puzzlePieceReward - behaviourScript.basePieces) < bonusPieces)
+            if((!behaviourScript.isCamouflaged && !behaviourScript.immuneToFire) || (behaviourScript.isCamouflaged && canHitCamo) || (behaviourScript.immuneToFire && !isFire))
             {
-                behaviourScript.puzzlePieceReward = (behaviourScript.basePieces + bonusPieces);
-            }
-            lastHitEnemy = collision.gameObject;
-            amountPierced++;
-            if (amountPierced >= piercing)
-            {
-                hit = true;
-                Destroy(this.gameObject);
-            }
-            if (activatesExplosion) ExplodeBomb();
-
-            if (activatesSlow)
-            {
-                if (!behaviourScript.slowed)
+                behaviourScript.health -= damage;
+                if ((behaviourScript.puzzlePieceReward - behaviourScript.basePieces) < bonusPieces)
                 {
-                    behaviourScript.ApplySlow(slowModifier, slowTime);
+                    behaviourScript.puzzlePieceReward = (behaviourScript.basePieces + bonusPieces);
+                }
+                lastHitEnemy = collision.gameObject;
+                amountPierced++;
+                if (amountPierced >= piercing)
+                {
+                    hit = true;
+                    Destroy(this.gameObject);
+                }
+                if (activatesExplosion) ExplodeBomb();
+
+                if (activatesSlow)
+                {
+                    if (!behaviourScript.slowed)
+                    {
+                        behaviourScript.ApplySlow(slowModifier, slowTime);
+                    }
+                }
+
+                if (activatesDOT)
+                {
+                    if (!behaviourScript.DOTActive)
+                    {
+                        behaviourScript.StartDOT(burnDamage, burnSpeed, burnRepeats);
+                    }
+                }
+                if (activatesReverse)
+                {
+                    EnemyPathMover pathScript = collision.GetComponent<EnemyPathMover>();
+                    pathScript.ActivateReverse(reverseTime, reverseSpeed, friendlyFire);
                 }
             }
-
-            if (activatesDOT)
-            {
-                if (!behaviourScript.DOTActive)
-                {
-                    behaviourScript.StartDOT(burnDamage, burnSpeed, burnRepeats);
-                }
-            }
-            if (activatesReverse)
-            {
-                EnemyPathMover pathScript = collision.GetComponent<EnemyPathMover>();
-                pathScript.ActivateReverse(reverseTime, reverseSpeed, friendlyFire);
-            }
-
-            
         }
         if (collision.gameObject.CompareTag("Tower") && collision.gameObject != parentBlock)
         {

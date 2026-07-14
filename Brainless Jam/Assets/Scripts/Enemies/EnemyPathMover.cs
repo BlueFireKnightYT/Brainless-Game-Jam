@@ -12,6 +12,7 @@ public class EnemyPathMover : MonoBehaviour
 
     private int currentIndex = 0;
     private Vector3 targetWorldPos;
+    public int stepsPerMove;
     private void Start()
     {
         eB=GetComponent<EnemyBehaviour>();
@@ -82,8 +83,8 @@ public class EnemyPathMover : MonoBehaviour
         // reached current node
         if (Vector3.Distance(transform.position, targetWorldPos) < 0.05f)
         {
-            if (reversed) currentIndex--;
-            else currentIndex++;
+            if (reversed) currentIndex -= stepsPerMove;
+            else currentIndex += stepsPerMove;
 
             if (currentIndex >= path.Count)
             {

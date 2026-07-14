@@ -9,6 +9,8 @@ TagManager:
   - Enemy
   - Canvas
   - Shield
+  - Spawnpoint
+  - Spawner
   layers:
   - Default
   - TransparentFX

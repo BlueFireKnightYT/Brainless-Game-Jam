@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -12,10 +14,13 @@ public class TowerInitialiser : MonoBehaviour
     public BlockScriptableObjects[] towerParts;
     public Quaternion[] towerPartsRotations;
     public Vector3[] towerPartsScales;
+    GameObject[] spawnPoints;
     public GameObject partTemplate;
     BuilderUI buildUI;
     int totalBonusPieces;
     int totalCost;
+    Vector2Int lastPosition;
+    Vector2Int currentposition;
 
     [Header("Text Components")]
     public TextMeshProUGUI synergyText;
@@ -34,6 +39,8 @@ public class TowerInitialiser : MonoBehaviour
     public List<Vector2Int> blockLayout;
     string presetName;
 
+    bool blocksPath;
+
 
     bool MatchesPreset(List<Vector2Int> current, List<Vector2Int> preset)
     {
@@ -43,6 +50,7 @@ public class TowerInitialiser : MonoBehaviour
 
     private void Start()
     {
+        spawnPoints = GameObject.FindGameObjectsWithTag("Spawnpoint");
         buildUI = GameObject.FindGameObjectWithTag("Canvas").GetComponent<BuilderUI>();
         foreach (BuilderUI.Preset preset in buildUI.presets)
         {
@@ -151,7 +159,7 @@ public class TowerInitialiser : MonoBehaviour
             isOverlapping = !CanPlacePart(basePos);
             canPlace = !isOverlapping;
 
-            if (canPlace)
+            if (canPlace && !blocksPath)
             {
                 for (int i = 0; i < children.Count; i++)
                 { 
@@ -167,8 +175,15 @@ public class TowerInitialiser : MonoBehaviour
                     children[i].GetComponent<SpriteRenderer>().color = Color.red; 
                 } 
             }
+
+            lastPosition = basePos;
+            if(currentposition != lastPosition)
+            {
+                currentposition = lastPosition;
+                OnGridChange(basePos);
+            }
         }
-        if (Mouse.current.leftButton.wasPressedThisFrame && canPlace && !placed)
+        if (Mouse.current.leftButton.wasPressedThisFrame && canPlace && !placed && !blocksPath)
         {
 
             placed = true;
@@ -298,6 +313,42 @@ public class TowerInitialiser : MonoBehaviour
         {
             partSO.attackSpeed /= 1.5f;
         }
+        if(presetName == "Spike")
+        {
+            partSO.damage = Mathf.RoundToInt(partSO.damage * 1.25f);
+        }
+        if(presetName == "Flower")
+        {
+            partSO.attackSpeed /= 1.25f;
+        }
+        if(presetName == "Corners")
+        {
+            partSO.duration *= 2f;
+        }
+        if(presetName == "Donut")
+        {
+            partSO.projectileAmount += 1;
+        }
+        if(presetName == "Tower")
+        {
+            partSO.piercing += 1;
+        }
+        if(presetName == "Table")
+        {
+            partSO.bonusPieces += 5;
+        }
+        if(presetName == "Chair")
+        {
+            partSO.bonusPieces += 3;
+        }
+        if(presetName == "Hat")
+        {
+            partSO.piercing += 1;
+        }
+        if(presetName == "Stairs")
+        {
+            partSO.attackSpeed *= 1.5f;
+        }
     }
 
     Synergy FindSynergy(List<GameObject> objects, BlockScriptableObjects blockSO)
@@ -347,11 +398,13 @@ public class TowerInitialiser : MonoBehaviour
             PartSOUser partScript = partSO.GetComponent<PartSOUser>();
             partScript.piercing = 4;
             partScript.bulletSpeed *= 2;
+            partScript.damage *= 2;
         }
         if(synergyName == "Brainless Storm")
         {
             PartSOUser partScript = partSO.GetComponent<PartSOUser>();
             partScript.friendlyFire = true;
+            partScript.piercing = 1;
             partScript.reverseSpeed = 1;
             partScript.reverseTime = 5;
         }
@@ -366,5 +419,53 @@ public class TowerInitialiser : MonoBehaviour
             PartSOUser partScript = partSO.GetComponent<PartSOUser>();
             partScript.shootsProjectiles = true;
         }
+    }
+
+    void OnGridChange(Vector2Int basePos)
+    {
+        HashSet<Vector2Int> towerPartsLocations = new HashSet<Vector2Int>();
+        for (int i = 0; i < towerParts.Length; i++)
+        {
+            if (towerParts[i] == null) continue;
+            int x = 0;
+            int y = 0;
+            if (i <= 2)
+            {
+                x = i;
+                y = 0;
+            }
+            else if (i <= 5)
+            {
+                x = i - 3;
+                y = 1;
+            }
+            else
+            {
+                x = i - 6;
+                y = 2;
+            }
+
+            Vector2Int pos = basePos + new Vector2Int(x, y);
+            towerPartsLocations.Add(pos);
+        }
+        int blockedPaths = 0;
+        foreach (GameObject spawnpoint in spawnPoints)
+        {
+            CreateEnemyPath cEP = spawnpoint.GetComponent<CreateEnemyPath>();
+            List<Vector2Int> path = cEP.ePF.FindPath(WorldToGrid(spawnpoint.transform.position), WorldToGrid(cEP.player.transform.position), towerPartsLocations);
+            if(path == null || path.Count == 0)
+            {
+                blockedPaths++;
+            }
+        }
+        if (blockedPaths != 0) blocksPath = true;
+        if (blockedPaths == 0) blocksPath = false;
+    }
+    Vector2Int WorldToGrid(Vector3 pos)
+    {
+        return new Vector2Int(
+            Mathf.RoundToInt(pos.x),
+            Mathf.RoundToInt(pos.y)
+        );
     }
 }

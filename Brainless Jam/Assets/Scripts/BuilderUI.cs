@@ -37,6 +37,7 @@ public class BuilderUI : MonoBehaviour
     public GameObject buildUI;
     public GameObject removeUI;
     public GameObject moveUI;
+    public GameObject lookUpSynergyUI;
 
     public bool isRemoving;
     public bool isMoving;
@@ -207,6 +208,7 @@ public class BuilderUI : MonoBehaviour
             buildUI.SetActive(true);
             removeUI.SetActive(false);
             moveUI.SetActive(false);
+            lookUpSynergyUI.SetActive(false);
             Time.timeScale = 0;
         }
         else
@@ -262,6 +264,20 @@ public class BuilderUI : MonoBehaviour
         else if(Time.timeScale == 2)
         {
             Time.timeScale = 1;
+        }
+    }
+
+    public void ToggleSynergyLookupUI()
+    {
+        if(lookUpSynergyUI.activeSelf)
+        {
+            lookUpSynergyUI.SetActive(false);
+            buildUI.SetActive(true);
+        }
+        else
+        {
+            lookUpSynergyUI.SetActive(true);
+            buildUI.SetActive(false);
         }
     }
 }

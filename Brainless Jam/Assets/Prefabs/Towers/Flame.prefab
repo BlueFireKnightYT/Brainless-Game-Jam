@@ -182,9 +182,13 @@ MonoBehaviour:
   damage: 0
   size: 0
   duration: 0
+  amountPierced: 0
+  piercing: 0
   parentBlock: {fileID: 0}
+  bonusPieces: 0
   activatesExplosion: 0
   explodeRadius: 0
+  explodePierce: 0
   activatesSlow: 0
   slowModifier: 0
   slowTime: 0
@@ -192,3 +196,11 @@ MonoBehaviour:
   burnDamage: 0
   burnRepeats: 0
   burnSpeed: 0
+  activatesReverse: 0
+  reverseTime: 0
+  reverseSpeed: 0
+  friendlyFire: 0
+  shootsProjectiles: 0
+  projectile: {fileID: 0}
+  canHitCamo: 0
+  isFire: 1
