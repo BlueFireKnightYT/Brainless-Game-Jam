@@ -12,6 +12,7 @@ using static BlockScriptableObjects;
 public class TowerInitialiser : MonoBehaviour
 {
     public BlockScriptableObjects[] towerParts;
+    public GameObject[] originalButtons;
     public Quaternion[] towerPartsRotations;
     public Vector3[] towerPartsScales;
     GameObject[] spawnPoints;
@@ -92,6 +93,7 @@ public class TowerInitialiser : MonoBehaviour
                 currentPart.GetComponent<PartSOUser>().partSO = towerParts[i];
                 totalBonusPieces += currentPart.GetComponent<PartSOUser>().partSO.bonusPieces;
                 totalCost += currentPart.GetComponent<PartSOUser>().partSO.cost;
+                currentPart.GetComponent<PartSOUser>().originButton = originalButtons[i];
                 StartCoroutine(ApplyBonus(presetName, currentPart.GetComponent<PartSOUser>()));
                 if (towerPartsScales[i] == new Vector3(1, -1, 1))
                 {
@@ -211,17 +213,21 @@ public class TowerInitialiser : MonoBehaviour
             {
                 if (buildUI.isRemoving)
                 {
-                    PuzzlePieceManager.puzzlePieces += totalCost / 2;
-                    for (int i = 0; i < children.Count; i++)
+                    if (PuzzlePieceManager.puzzlePieces >= 5)
                     {
-                        if (children[i] == null) continue;
-                        GridManager.Instance.Unoccupy(new Vector2Int(Mathf.RoundToInt(children[i].transform.position.x), Mathf.RoundToInt(children[i].transform.position.y)));
+                        for (int i = 0; i < children.Count; i++)
+                        {
+                            if (children[i] == null) continue;
+                            children[i].GetComponent<PartSOUser>().originButton.GetComponent<SOChooser>().amount += 1;
+                            GridManager.Instance.Unoccupy(new Vector2Int(Mathf.RoundToInt(children[i].transform.position.x), Mathf.RoundToInt(children[i].transform.position.y)));
+                        }
+                        PuzzlePieceManager.puzzlePieces -= 5;
+                        Destroy(this.gameObject);
                     }
-                    Destroy(this.gameObject);
                 }
                 if (buildUI.isMoving)
                 {
-                    if(PuzzlePieceManager.puzzlePieces >= 10)
+                    if(PuzzlePieceManager.puzzlePieces >= 5)
                     {
                         buildUI.ToggleMoveUI();
                         for (int i = 0; i < children.Count; i++)
@@ -229,6 +235,7 @@ public class TowerInitialiser : MonoBehaviour
                             if (children[i] == null) continue;
                             GridManager.Instance.Unoccupy(new Vector2Int(Mathf.RoundToInt(children[i].transform.position.x), Mathf.RoundToInt(children[i].transform.position.y)));
                         }
+                        PuzzlePieceManager.puzzlePieces -= 5;
                         placed = false;
                     }
                 }

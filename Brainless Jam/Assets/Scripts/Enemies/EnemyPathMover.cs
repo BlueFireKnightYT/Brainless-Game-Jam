@@ -91,7 +91,10 @@ public class EnemyPathMover : MonoBehaviour
                 path = null; // done
                 return;
             }
-            targetWorldPos = GridToWorld(path[currentIndex]);    
+            if (currentIndex >= 0)
+            {
+                targetWorldPos = GridToWorld(path[currentIndex]);
+            } 
         }
     }
 
@@ -113,14 +116,17 @@ public class EnemyPathMover : MonoBehaviour
 
     IEnumerator ApplyReverse(float time, float speed, bool friendlyFire)
     {
-        reversed = true;
-        eB.speed *= speed;
-        currentIndex--;
-        targetWorldPos = GridToWorld(path[currentIndex]);
-        if (friendlyFire) eB.friendlyFire = true;
-        yield return new WaitForSeconds(time);
-        eB.speed /= speed;
-        reversed = false;
-        eB.friendlyFire = false;
+        if(currentIndex -1 >= 0)
+        {
+            reversed = true;
+            eB.speed *= speed;
+            currentIndex--;
+            targetWorldPos = GridToWorld(path[currentIndex]);
+            if (friendlyFire) eB.friendlyFire = true;
+            yield return new WaitForSeconds(time);
+            eB.speed /= speed;
+            reversed = false;
+            eB.friendlyFire = false;
+        } 
     }
 }

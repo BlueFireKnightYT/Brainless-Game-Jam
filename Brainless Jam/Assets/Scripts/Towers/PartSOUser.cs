@@ -5,6 +5,7 @@ using UnityEngine;
 public class PartSOUser : MonoBehaviour
 {
     public BlockScriptableObjects partSO;
+    public GameObject originButton;
     TowerInitialiser tI;
     SpriteRenderer sr;
     Collider2D coll;

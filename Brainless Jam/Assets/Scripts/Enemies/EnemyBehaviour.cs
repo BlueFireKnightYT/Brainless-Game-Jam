@@ -131,12 +131,8 @@ public class EnemyBehaviour : MonoBehaviour
     {
         slowed = true;
         speed *= speedModifier;
-        while (true)
-        {
-            yield return new WaitForSeconds(time);
-            speed /= speedModifier;
-            slowed = false;
-            StopCoroutine(SlowEnemy(speedModifier, time));
-        } 
+        yield return new WaitForSeconds(time);
+        speed /= speedModifier;
+        slowed = false;
     }
 }

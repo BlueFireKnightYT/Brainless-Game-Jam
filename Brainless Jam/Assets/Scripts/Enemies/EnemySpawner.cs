@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class EnemySpawner : MonoBehaviour
         public int spawnLocation;
     }
     [Header("Enemy Waves")]
-    public EnemyWave[] waves; 
+    public EnemyWave[] waves;
 
     public bool waveActive = true;
 
@@ -31,13 +32,26 @@ public class EnemySpawner : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(WaveAdvancer());
+        if (WaveData.waveData != null && WaveData.waveData.waves != null)
+        {
+            waves = WaveData.waveData.waves;
+        }
+            StartCoroutine(WaveAdvancer());
     }
 
     void EndWave()
     {
         currentWaveCount++;
-        StartCoroutine(WaveAdvancer());
+        if (currentWaveCount >= 0 && currentWaveCount < waves.Length)
+        {
+            StartCoroutine(WaveAdvancer());
+        }
+        else
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+            WaveData.finished = true;
+            WaveData.amountFinished++;
+        }
     }
 
     private void Update()

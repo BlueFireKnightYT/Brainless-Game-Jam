@@ -8,13 +8,12 @@ public class SOChooser : MonoBehaviour
     public BuilderUI builderUI;
     public int amount;
     public int cost;
-    TextMeshProUGUI text;
+    public TextMeshProUGUI text;
     GameObject mouseblock;
 
     private void Start()
     {
         text = GetComponentInChildren<TextMeshProUGUI>();
-        text.text = amount.ToString();
         cost = so.cost;
     }
     public void getSO()
@@ -24,6 +23,7 @@ public class SOChooser : MonoBehaviour
             if (amount > 0)
             {
                 builderUI.selectedBlock = so;
+                builderUI.originButton = this.gameObject;
                 builderUI.UpdateAmount(this.gameObject, -1);
                 mouseblock = Instantiate(builderUI.mouseBlockPrefab, transform.parent.parent.parent.parent.parent.parent);
                 mouseblock.GetComponent<Image>().sprite = so.sprite;
@@ -46,5 +46,10 @@ public class SOChooser : MonoBehaviour
             PuzzlePieceManager.puzzlePieces -= cost;
             text.text = amount.ToString();
         }
+    }
+
+    private void Update()
+    {
+        text.text = amount.ToString();
     }
 }

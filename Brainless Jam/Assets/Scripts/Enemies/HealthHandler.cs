@@ -1,5 +1,5 @@
-using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class HealthHandler : MonoBehaviour
@@ -12,6 +12,10 @@ public class HealthHandler : MonoBehaviour
     public void ChangeHealth(int change)
     {
         health -= change;
+        if (health <= 0)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        }
         UpdateUIHearts();
     }
 

@@ -43,6 +43,4 @@ MonoBehaviour:
   enableFriendlyFire: 0
   bonusPieces: 0
   objID: 1
-  synergyList:
-  - SynergyName: Minigun
-    synergyBlockID: 010000000100000001000000
+  synergyList: []

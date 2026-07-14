@@ -8,6 +8,7 @@ public class PuzzlePieceManager : MonoBehaviour
     private void Start()
     {
         puzzlePieces += startingPieces;
+        DontDestroyOnLoad(this);
     }
 
 }

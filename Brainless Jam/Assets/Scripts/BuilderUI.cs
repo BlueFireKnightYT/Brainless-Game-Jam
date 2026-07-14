@@ -10,6 +10,7 @@ public class BuilderUI : MonoBehaviour
     [Header("Block SO's")]
     public BlockScriptableObjects selectedBlock;
     public BlockScriptableObjects emptyBlock;
+    public GameObject originButton;
 
     [System.Serializable]
     public class Preset
@@ -28,6 +29,7 @@ public class BuilderUI : MonoBehaviour
     public GameObject[] allBlocks;
     public GameObject[] gridBlocks;
     public BlockScriptableObjects[] towerToSpawn;
+    public GameObject[] originButtons;
     public GameObject towerTemplate;
 
     public GameObject mouseBlockPrefab;
@@ -49,6 +51,23 @@ public class BuilderUI : MonoBehaviour
     public int timePerEarn;
     public TextMeshProUGUI text;
 
+    private void Start()
+    {
+        foreach(var button in allBlocks)
+        {
+            SOChooser script = button.GetComponent<SOChooser>();
+            if (!TowerParts.Instance.UnlockedTower(script.so.name))
+            {
+                button.SetActive(false);
+            }
+            else
+            {
+                script.amount = TowerParts.Instance.GetTowerAmount(script.so.name);
+                script.text.text = script.amount.ToString();
+            }
+        }
+    }
+
     public void ChooseGrid()
     {
         if (selectedBlock != null)
@@ -58,6 +77,7 @@ public class BuilderUI : MonoBehaviour
             if (soExtractor.blockSO == null)
             {
                 soExtractor.blockSO = selectedBlock;
+                soExtractor.originButton = originButton;
                 soExtractor.wasExtracted = false;
                 selectedButton.transform.localScale = currentMouseBlock.transform.localScale;
                 selectedButton.transform.rotation = currentMouseBlock.transform.rotation;
@@ -145,6 +165,7 @@ public class BuilderUI : MonoBehaviour
             if (gridBlockSO != emptyBlock && gridBlockSO != null)
             {
                 towerToSpawn[i] = gridBlockSO;
+                originButtons[i] = gridBlockSOE.originButton;
                 storedPartRotations[i] = gridBlocks[i].transform.rotation;
                 storedPartScales[i] = gridBlocks[i].transform.localScale;
                 notEmpty = true;
@@ -152,6 +173,7 @@ public class BuilderUI : MonoBehaviour
             else
             {
                 towerToSpawn[i] = null;
+                originButtons[i] = null;
                 storedPartRotations[i] = Quaternion.Euler(1, 1, 1);
                 storedPartScales[i] = Vector3.zero;
             }
@@ -162,6 +184,7 @@ public class BuilderUI : MonoBehaviour
             GameObject currentTower = Instantiate(towerTemplate);
             TowerInitialiser tI = currentTower.GetComponent<TowerInitialiser>();
             tI.towerParts = towerToSpawn;
+            tI.originalButtons = originButtons;
             tI.towerPartsRotations = storedPartRotations;
             tI.towerPartsScales = storedPartScales;
             tI.puzzlePieceAmount = puzzlePieceAmount;
