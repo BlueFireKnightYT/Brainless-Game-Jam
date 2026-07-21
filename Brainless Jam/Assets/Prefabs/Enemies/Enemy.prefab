@@ -109,7 +109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   isLeft: 1
   isMoving: 0
-  health: 50
+  health: 40
   puzzlePieceReward: 3
   basePieces: 0
   damage: 5
@@ -120,6 +120,8 @@ MonoBehaviour:
   slowed: 0
   friendlyFire: 0
   breakBlocks: 0
+  isCamouflaged: 0
+  immuneToFire: 0
 --- !u!114 &3611730894330655880
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -110,7 +110,7 @@ MonoBehaviour:
   isLeft: 1
   isMoving: 0
   health: 50
-  puzzlePieceReward: 3
+  puzzlePieceReward: 5
   basePieces: 0
   damage: 5
   speed: 1.5

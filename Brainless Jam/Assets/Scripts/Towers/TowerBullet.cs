@@ -124,8 +124,7 @@ public class TowerBullet : MonoBehaviour
                     {
                         behaviourScript.puzzlePieceReward = (behaviourScript.basePieces + bonusPieces);
                     }
-                    behaviourScript.health -= Mathf.RoundToInt(damage / .5f);
-                    print("kaboom");
+                    behaviourScript.health -= Mathf.RoundToInt(damage * .5f);
                 }
             }
         }

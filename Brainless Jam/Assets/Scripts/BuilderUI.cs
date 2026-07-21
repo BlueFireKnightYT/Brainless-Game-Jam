@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -56,15 +57,19 @@ public class BuilderUI : MonoBehaviour
         foreach(var button in allBlocks)
         {
             SOChooser script = button.GetComponent<SOChooser>();
-            if (!TowerParts.Instance.UnlockedTower(script.so.name))
+            if(TowerParts.Instance != null)
             {
-                button.SetActive(false);
+                if (!TowerParts.Instance.UnlockedTower(script.so.name))
+                {
+                    button.SetActive(false);
+                }
+                else
+                {
+                    script.amount = TowerParts.Instance.GetTowerAmount(script.so.name);
+                    script.text.text = script.amount.ToString();
+                }
             }
-            else
-            {
-                script.amount = TowerParts.Instance.GetTowerAmount(script.so.name);
-                script.text.text = script.amount.ToString();
-            }
+            
         }
     }
 
@@ -231,7 +236,6 @@ public class BuilderUI : MonoBehaviour
             buildUI.SetActive(true);
             removeUI.SetActive(false);
             moveUI.SetActive(false);
-            lookUpSynergyUI.SetActive(false);
             Time.timeScale = 0;
         }
         else

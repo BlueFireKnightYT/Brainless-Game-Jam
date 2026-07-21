@@ -48,11 +48,25 @@ MonoBehaviour:
     spawnLocation: 2
   - waveCount: 0
     delayUntilSpawn: 1
-    enemyAmount: 3
+    enemyAmount: 4
     enemyToSpawn:
     - {fileID: 8495744514238583627, guid: 38b33a069a969ab46bfda76c7ed958ac, type: 3}
     - {fileID: 8495744514238583627, guid: 38b33a069a969ab46bfda76c7ed958ac, type: 3}
     - {fileID: 8495744514238583627, guid: 38b33a069a969ab46bfda76c7ed958ac, type: 3}
-    density: 2
+    - {fileID: 8495744514238583627, guid: 38b33a069a969ab46bfda76c7ed958ac, type: 3}
+    density: 0
+    randomSpawnLocation: 1
+    spawnLocation: 2
+  - waveCount: 0
+    delayUntilSpawn: 2
+    enemyAmount: 6
+    enemyToSpawn:
+    - {fileID: 8495744514238583627, guid: 38b33a069a969ab46bfda76c7ed958ac, type: 3}
+    - {fileID: 8495744514238583627, guid: 5ca85d56aadb68e4db1ba6e116d077a2, type: 3}
+    - {fileID: 8495744514238583627, guid: 38b33a069a969ab46bfda76c7ed958ac, type: 3}
+    - {fileID: 8495744514238583627, guid: 5ca85d56aadb68e4db1ba6e116d077a2, type: 3}
+    - {fileID: 8495744514238583627, guid: 38b33a069a969ab46bfda76c7ed958ac, type: 3}
+    - {fileID: 8495744514238583627, guid: 5ca85d56aadb68e4db1ba6e116d077a2, type: 3}
+    density: 1
     randomSpawnLocation: 1
     spawnLocation: 2

@@ -29,6 +29,8 @@ public class EnemySpawner : MonoBehaviour
 
     public float spawnCooldown = 1;
 
+    public bool isTutorial;
+
 
     void Start()
     {
@@ -46,7 +48,7 @@ public class EnemySpawner : MonoBehaviour
         {
             StartCoroutine(WaveAdvancer());
         }
-        else
+        else if(!isTutorial)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
             WaveData.finished = true;

@@ -15,7 +15,7 @@ MonoBehaviour:
   nameObject: Shield Block
   hp: 100
   sprite: {fileID: 21300000, guid: 65844f9e18c6eff42bc4c4a6b764677b, type: 3}
-  cost: 25
+  cost: 15
   spawnsObject: 1
   obj: {fileID: 7497012032571697193, guid: 8bc52e4c06e09554c98fea0b6ce7a12c, type: 3}
   replaceTime: 2

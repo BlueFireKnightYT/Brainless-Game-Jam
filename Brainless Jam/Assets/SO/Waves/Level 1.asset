@@ -33,31 +33,25 @@ MonoBehaviour:
     spawnLocation: 0
   - waveCount: 0
     delayUntilSpawn: 1
-    enemyAmount: 6
+    enemyAmount: 5
     enemyToSpawn:
     - {fileID: 8495744514238583627, guid: 0d275425a0fd7604d8c4ae63952943c9, type: 3}
     - {fileID: 8495744514238583627, guid: 0d275425a0fd7604d8c4ae63952943c9, type: 3}
     - {fileID: 8495744514238583627, guid: 0d275425a0fd7604d8c4ae63952943c9, type: 3}
-    - {fileID: 8495744514238583627, guid: 0d275425a0fd7604d8c4ae63952943c9, type: 3}
-    - {fileID: 8495744514238583627, guid: 0d275425a0fd7604d8c4ae63952943c9, type: 3}
-    - {fileID: 8495744514238583627, guid: 0d275425a0fd7604d8c4ae63952943c9, type: 3}
+    - {fileID: 8495744514238583627, guid: 5ca85d56aadb68e4db1ba6e116d077a2, type: 3}
+    - {fileID: 8495744514238583627, guid: 5ca85d56aadb68e4db1ba6e116d077a2, type: 3}
     density: 3
     randomSpawnLocation: 1
     spawnLocation: 2
   - waveCount: 0
     delayUntilSpawn: 1
-    enemyAmount: 10
+    enemyAmount: 5
     enemyToSpawn:
     - {fileID: 8495744514238583627, guid: 5ca85d56aadb68e4db1ba6e116d077a2, type: 3}
-    - {fileID: 8495744514238583627, guid: 0d275425a0fd7604d8c4ae63952943c9, type: 3}
     - {fileID: 8495744514238583627, guid: 5ca85d56aadb68e4db1ba6e116d077a2, type: 3}
-    - {fileID: 8495744514238583627, guid: 0d275425a0fd7604d8c4ae63952943c9, type: 3}
     - {fileID: 8495744514238583627, guid: 5ca85d56aadb68e4db1ba6e116d077a2, type: 3}
-    - {fileID: 8495744514238583627, guid: 0d275425a0fd7604d8c4ae63952943c9, type: 3}
-    - {fileID: 8495744514238583627, guid: 0d275425a0fd7604d8c4ae63952943c9, type: 3}
-    - {fileID: 8495744514238583627, guid: 0d275425a0fd7604d8c4ae63952943c9, type: 3}
-    - {fileID: 8495744514238583627, guid: 0d275425a0fd7604d8c4ae63952943c9, type: 3}
-    - {fileID: 8495744514238583627, guid: 0d275425a0fd7604d8c4ae63952943c9, type: 3}
-    density: 2
+    - {fileID: 8495744514238583627, guid: 5ca85d56aadb68e4db1ba6e116d077a2, type: 3}
+    - {fileID: 8495744514238583627, guid: 5ca85d56aadb68e4db1ba6e116d077a2, type: 3}
+    density: 1
     randomSpawnLocation: 1
     spawnLocation: 2

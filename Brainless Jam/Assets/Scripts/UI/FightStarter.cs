@@ -16,7 +16,7 @@ public class FightStarter : MonoBehaviour
         {
                 if (WaveData.finished)
                 {
-                    if (i <= WaveData.amountFinished)
+                    if (i +1 <= WaveData.amountFinished)
                     {
                         print(WaveData.amountFinished);
                         fightMarkers[i].GetComponent<FightMark>().finished = true;

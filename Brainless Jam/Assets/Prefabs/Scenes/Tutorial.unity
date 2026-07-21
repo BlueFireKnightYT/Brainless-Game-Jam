@@ -532,6 +532,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SOExtractor
   blockSO: {fileID: 0}
+  originButton: {fileID: 0}
   gridIndex: {x: 2, y: 2}
   wasExtracted: 0
 --- !u!114 &53899907
@@ -1525,6 +1526,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SOExtractor
   blockSO: {fileID: 0}
+  originButton: {fileID: 0}
   gridIndex: {x: 1, y: 2}
   wasExtracted: 0
 --- !u!114 &199559015
@@ -1850,6 +1852,7 @@ MonoBehaviour:
   builderUI: {fileID: 1822951821}
   amount: 2
   cost: 25
+  text: {fileID: 0}
 --- !u!114 &213505547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2059,6 +2062,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SOExtractor
   blockSO: {fileID: 0}
+  originButton: {fileID: 0}
   gridIndex: {x: 0, y: 1}
   wasExtracted: 0
 --- !u!114 &234785476
@@ -2390,6 +2394,7 @@ MonoBehaviour:
   builderUI: {fileID: 1822951821}
   amount: 3
   cost: 20
+  text: {fileID: 0}
 --- !u!114 &246378981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4125,6 +4130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SOExtractor
   blockSO: {fileID: 0}
+  originButton: {fileID: 0}
   gridIndex: {x: 0, y: 0}
   wasExtracted: 0
 --- !u!114 &504534145
@@ -6290,8 +6296,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6551,6 +6557,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SOExtractor
   blockSO: {fileID: 0}
+  originButton: {fileID: 0}
   gridIndex: {x: 1, y: 0}
   wasExtracted: 0
 --- !u!114 &722917051
@@ -7056,6 +7063,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SOExtractor
   blockSO: {fileID: 0}
+  originButton: {fileID: 0}
   gridIndex: {x: 0, y: 2}
   wasExtracted: 0
 --- !u!114 &757232791
@@ -7222,6 +7230,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SOExtractor
   blockSO: {fileID: 0}
+  originButton: {fileID: 0}
   gridIndex: {x: 1, y: 1}
   wasExtracted: 0
 --- !u!114 &780363349
@@ -7692,6 +7701,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SOExtractor
   blockSO: {fileID: 0}
+  originButton: {fileID: 0}
   gridIndex: {x: 2, y: 1}
   wasExtracted: 0
 --- !u!114 &822421938
@@ -8474,6 +8484,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SOExtractor
   blockSO: {fileID: 0}
+  originButton: {fileID: 0}
   gridIndex: {x: 2, y: 0}
   wasExtracted: 0
 --- !u!114 &868669761
@@ -11899,6 +11910,7 @@ MonoBehaviour:
   builderUI: {fileID: 1822951821}
   amount: 2
   cost: 50
+  text: {fileID: 0}
 --- !u!114 &1227507753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13667,6 +13679,10 @@ PrefabInstance:
     - target: {fileID: 3338972566701222908, guid: 09eeb548b664b8b44a2bb6ba87a8cbf5, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3338972566701222908, guid: 09eeb548b664b8b44a2bb6ba87a8cbf5, type: 3}
+      propertyPath: isTutorial
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3338972566701222908, guid: 09eeb548b664b8b44a2bb6ba87a8cbf5, type: 3}
       propertyPath: waveActive
@@ -16335,7 +16351,7 @@ MonoBehaviour:
   m_text: Welcome to Shaped Conflicts!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1386c8f6ebff21343a04b8b554bec2b9, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: -1654013252502389210, guid: 1386c8f6ebff21343a04b8b554bec2b9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -16359,8 +16375,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -16401,7 +16417,7 @@ MonoBehaviour:
   m_margin: {x: 0.19449425, y: 0, z: 0.4598388, w: -0.17340088}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1776987100
@@ -16988,6 +17004,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   selectedBlock: {fileID: 0}
   emptyBlock: {fileID: 11400000, guid: 4a2a756cedfca0945bb63c123460db44, type: 2}
+  originButton: {fileID: 0}
   presets:
   - presetName: Castle
     parts:
@@ -17095,6 +17112,16 @@ MonoBehaviour:
   - {fileID: 677472434}
   - {fileID: 1818415142}
   towerToSpawn:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  originButtons:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

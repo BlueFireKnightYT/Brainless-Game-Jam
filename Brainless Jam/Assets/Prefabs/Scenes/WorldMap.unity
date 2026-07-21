@@ -576,7 +576,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FightMark
   finished: 0
   nextLevel: 0
-  waveData: {fileID: 0}
+  waveData: {fileID: 11400000, guid: 5e6d90f47222aea4aaf6e7f134812a81, type: 2}
 --- !u!1 &107406505
 GameObject:
   m_ObjectHideFlags: 0
@@ -1948,7 +1948,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2ffd7b3764af56343acad054fbf4707e, type: 2}
   - {fileID: 11400000, guid: 3426e9aaada22ec44b59d7f9247805f1, type: 2}
   - {fileID: 11400000, guid: 6858a1f23c845f84baf2ede02b41195c, type: 2}
-  - {fileID: 11400000, guid: 7cde520541500fc4e89acabdf3113560, type: 2}
   puzzlePiecesText: {fileID: 1459251111}
 --- !u!1 &514724064
 GameObject:
@@ -2397,7 +2396,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FightMark
   finished: 0
   nextLevel: 0
-  waveData: {fileID: 0}
+  waveData: {fileID: 11400000, guid: 1180bbf37bb819948aed922019e8820e, type: 2}
 --- !u!1 &768403094
 GameObject:
   m_ObjectHideFlags: 0
@@ -3068,7 +3067,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dee7eb58e37c47744ad99607bdb1274c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  startingPieces: 200
 --- !u!4 &1141032854
 Transform:
   m_ObjectHideFlags: 0
@@ -4760,7 +4758,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FightMark
   finished: 0
   nextLevel: 0
-  waveData: {fileID: 0}
+  waveData: {fileID: 11400000, guid: 4f0ff096d64c56a4fb5157e3286f0497, type: 2}
 --- !u!1 &1752828076
 GameObject:
   m_ObjectHideFlags: 0
